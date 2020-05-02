@@ -1,0 +1,213 @@
+import java.util.Scanner;
+class link
+{
+	public int data;
+	public link next;
+	public link(int d)
+	{
+		data=d;
+	}
+	public void display()
+	{
+		System.out.print("---->"+data);
+	}
+}
+class linklist
+{
+	private link first;
+	public linklist()
+	{
+		first=null;
+	}
+	public boolean isEmpty()
+	{
+		if(first==null)
+			return true;
+		else
+			return false;
+	}
+	public void insertFirst(int d)
+	{
+		link newLink=new link(d);
+		newLink.next=first;
+		first=newLink;
+	}
+	public void insertLast(int d)
+	{
+		link current=first;
+		link newLink=new link(d);
+		if(first==null)
+			first=newLink;
+		else
+		{
+			while(current.next!=null)
+				current=current.next;
+			current.next=newLink;
+			newLink.next=null;
+		}
+	}
+	public void deleteFirst()
+	{
+		first=first.next;
+	}
+	public void deleteLast()
+	{
+		link current=first;
+		link previous=first;
+		if(first.next==null)
+		{
+			first=null;
+			System.out.println("List is Empty");
+		}
+		else
+		{
+			while(current.next!=null)
+			{
+				previous=current;
+				current=current.next;
+			}
+			previous.next=null;
+		}
+	}
+	public void insertAfter(int key,int d)
+	{
+		link newLink=new link(d);
+		link current=first;
+		while(current.data!=key)
+		{
+			if(current.next==null)
+			{
+				System.out.println("Key not Present");
+				return ;
+			}
+			else
+				current=current.next;
+		}
+		newLink.next=current.next;
+		current.next=newLink;
+	}
+	public void deleteAfter(int key)
+	{
+		link current=first;
+		while(current.data!=key)
+		{
+			if(current.next==null)
+			{
+				System.out.println("Key not present");
+				return ;
+			}
+			else
+			{
+				current=current.next;
+			}
+		}
+		current.next=current.next.next;
+	}
+	public void deleteAt(int key)
+	{
+		link current=first;
+		link previous=first;
+		if(first.data==key)
+			first=null;
+		else
+		{
+			while(current.data!=key)
+			{
+				if(current.next==null)
+				{
+					System.out.println("KEY not present");
+					return ;
+				}
+				else
+				{
+					previous=current;
+					current=current.next;
+				}
+			}
+			previous.next=current.next;
+		}
+	}
+	public void displayList()
+	{
+		link current=first;
+		while(current!=null)
+		{
+			current.display();
+			current=current.next;
+		}
+	}
+}
+class sll
+{
+	public static void main(String Str[])
+	{
+		Scanner sc=new Scanner(System.in);
+		linklist obj=new linklist();
+		int c=0;
+		while(c!=9)
+		{
+			System.out.println("\nEnter the Choice");
+			System.out.println(" 1 Insert First\n 2 Insert Last\n 3 Delete First\n 4 Delete Last\n 5 Insert After Key\n 6 Delete After key\n 7 Delete At Ky\n 8 Display List\n 9 Exit\n");
+			c=sc.nextInt();
+			switch(c)
+			{
+				case 1: System.out.println("Enter the element");
+					int x=sc.nextInt();
+					obj.insertFirst(x);
+					break;
+				case 2: System.out.println("Enter the element");
+					int y=sc.nextInt();
+					obj.insertLast(y);
+					break;
+				case 3: System.out.println("Deleting First element...");
+					obj.deleteFirst();
+					break;
+				case 4: System.out.println("Deleting Last element...");
+					obj.deleteLast();
+					break;
+				case 5: if(obj.isEmpty())
+					System.out.println("List is empty");
+					else
+					{
+						System.out.println("Enter the key");
+						int k=sc.nextInt();
+						System.out.println("Enter the element");
+						int z=sc.nextInt();
+						obj.insertAfter(k,z);
+					}
+					break;
+				case 6:if(obj.isEmpty())
+					System.out.println("List is empty");
+					else
+					{
+						System.out.println("Enter the key");
+						int ke=sc.nextInt();
+						obj.deleteAfter(ke);
+					}
+					break;
+				case 7:if(obj.isEmpty())
+					System.out.println("List is empty");
+					else
+					{
+						System.out.println("Enter the key");
+						int key=sc.nextInt();
+						obj.deleteAt(key);
+					}
+					break;
+				case 8: if(obj.isEmpty())
+						System.out.println("List is Empty...Nothing to show");
+					else
+					{
+						System.out.println("Displaying...");
+						obj.displayList();
+					}
+					break;
+				case 9: System.out.println("Exiting... :(");
+					System.exit(0);
+					break;
+				default: System.out.println("Enter the correct choice mahn..");
+					 break;
+			}
+		}
+	}
+}
